@@ -4,14 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>후원</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/include/header.jsp" %>
-	<h1>HOME</h1>
-	
-	
-	
-	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+	<h1>동물들을 도와주세요ㅠㅠ</h1>
 </body>
 </html>
