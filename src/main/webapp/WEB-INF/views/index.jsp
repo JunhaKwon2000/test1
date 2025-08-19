@@ -7,11 +7,36 @@
 <title>Home</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/include/header.jsp" %>
-	<h1>HOME</h1>
+	<h1>Home</h1>
+	
+	<!-- JS -->
+	<a href="/">home</a>
 	
 	
 	
-	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+	
+	<!-- JS END -->
+	
+	
+	
+	
+	<!-- 두현이형 -->
+	
+	
+	
+	
+	<!-- 두현이형 끝 -->
+	
+	
+	
+	
+	<!-- 준하씨 -->
+	
+	
+	
+	
+	
+	<!-- 준하씨 끝 -->
+	
 </body>
 </html>
