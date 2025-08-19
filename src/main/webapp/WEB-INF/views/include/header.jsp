@@ -10,10 +10,10 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link" href="#">후원 상품</a>
+					<a class="nav-link" href="/product/list">후원 상품</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/">회원가입</a>
+					<a class="nav-link" href="/member/join">회원가입</a>
 				</li>
 			</ul>
 		</div>

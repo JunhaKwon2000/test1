@@ -7,36 +7,8 @@
 <title>Home</title>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<h1>Home</h1>
-	
-	<!-- JS -->
-	<a href="/">home</a>
-	
-	
-	
-	
-	<!-- JS END -->
-	
-	
-	
-	
-	<!-- 두현이형 -->
-	
-	
-	
-	
-	<!-- 두현이형 끝 -->
-	
-	
-	
-	
-	<!-- 준하씨 -->
-	
-	
-	
-	
-	
-	<!-- 준하씨 끝 -->
-	
+	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 </body>
 </html>
