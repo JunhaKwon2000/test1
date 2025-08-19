@@ -10,7 +10,7 @@
 	<h1>Home</h1>
 	
 	<!-- JS -->
-	
+	<a href="/">home</a>
 	
 	
 	
