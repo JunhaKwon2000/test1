@@ -100,12 +100,21 @@ public class MemberController {
 		}
 	// 2) 현재 비밀번호 검증
 		
+		if(!member.getPw().equals(currentPassword)) {
+			redirectAttributes.addFlashAttribute("errorMessage","현재 비밀번호가 올바르지 않습니다.");
+			return "redirect:/member/passwordChange";
+		}
 		
-		return "";
-	}
-			
-			
+	// 3) 비밀번호 변경
+	memberService.updatePassword(member.getId(), newPassword);
+	// 세션 무효화
+	redirectAttributes.addFlashAttribute("successMessage","비밀번호가 성공적으로 변경되었습니다. 다시 로그인 해주세요");
+	session.invalidate();
+	return "redirect:/member/login";		 
 	
+	
+	
+	}
 	
 	
 	

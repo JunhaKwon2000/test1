@@ -8,4 +8,8 @@ public interface MemberDAO {
 	public MemberVO login(MemberVO memberVO)throws Exception;
 	
 	public int join(MemberVO memberVO)throws Exception;
+	
+	public String getPassword(MemberVO memberVO)throws Exception;
+	
+	public int updatePassword(MemberVO memberVO)throws Exception;
 }

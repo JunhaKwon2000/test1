@@ -30,6 +30,12 @@
 				<button class="btn btn-primary" type="submit">로그인</button>
 			</div>
 		</form:form>
+		
+		<c:if test="${not empty successMessage}">
+       <script>
+        alert("${successMessage}");
+       </script>
+    </c:if>
 	</div>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	

@@ -20,11 +20,23 @@
   	</insert>
   	
   	<select id="login" parameterType="memberVO" resultMap="loginResult">
-  	SELECT id,pw
+  	SELECT *
   		FROM Member
   		WHERE ID=#{id}
   	
   	</select>
+  	
+  	<select id="getPassword" parameterType="memberVO" resultType="string">
+  		SELECT pw
+  		 FROM member 
+  		 WHERE id = #{id}
+  	</select>
+  	
+  	<update id="updatePassword" parameterType="memberVO">
+  		UPDATE member
+  		SET pw = #{pw}
+  		WHERE id = #{id}
+  	</update>
   	
   	
   	</mapper>

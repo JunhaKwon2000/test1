@@ -28,6 +28,28 @@ public class MemberService {
 		
 		return null;
 	}
+
+	public boolean checkPassword(String memberId, String currentPassword)throws Exception {
+		MemberVO vo = new MemberVO();
+		
+		
+		
+		String dbPw = memberDAO.getPassword(vo);
+		
+		if(dbPw == null) {
+			return false;
+		}
+		
+		return currentPassword.equals(dbPw);
+	}
+
+	public int updatePassword(String memberId, String newPassword)throws Exception {
+		MemberVO vo = new MemberVO();
+		vo.setId(memberId);
+		vo.setPw(newPassword);
+		return memberDAO.updatePassword(vo);
+		
+	}
 	
 
 }

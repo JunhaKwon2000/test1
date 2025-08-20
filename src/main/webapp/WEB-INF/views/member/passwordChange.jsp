@@ -5,6 +5,7 @@
     <title>비밀번호 변경</title>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/include/header.jsp" %>
     <h2>비밀번호 변경</h2>
     
     <form action="/member/changePassword" method="post">
@@ -24,11 +25,11 @@
     </form>
 
     <!-- 에러/성공 메시지 -->
+
     <c:if test="${not empty errorMessage}">
-        <p style="color:red">${errorMessage}</p>
-    </c:if>
-    <c:if test="${not empty successMessage}">
-        <p style="color:green">${successMessage}</p>
-    </c:if>
+	  <script>
+	    alert("${errorMessage}");
+	  </script>
+	</c:if>
 </body>
 </html>

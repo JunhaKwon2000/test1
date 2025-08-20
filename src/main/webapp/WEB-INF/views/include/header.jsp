@@ -13,9 +13,6 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/product/list">후원 상품</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/member/join">회원가입</a>
-				</li>
 				<!-- 로그인 상태 분기 -->
 				<c:choose>
 					<c:when test="${not empty sessionScope.member}">
@@ -27,6 +24,9 @@
 						</li>
 					</c:when>
 					<c:otherwise>
+						<li class="nav-item">
+							<a class="nav-link" href="/member/join">회원가입</a>
+						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="/member/login">로그인</a>
 						</li>
