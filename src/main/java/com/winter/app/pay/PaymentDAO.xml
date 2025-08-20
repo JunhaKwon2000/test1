@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winter.app.pay.PaymentDAO">
+
+	<resultMap type="PaymentLogVO" id="paymentResultMap">
+		<id column="log_num" property="logNum"/>
+		<result column="id" property="id"/>
+		<result column="product_num" property="productNum"/>
+		<result column="log_date" property="logDate"/>
+		<association property="productVO" javaType="ProductVO">
+			<result column="product_name" property="productName"/>
+			<result column="product_price" property="productPrice"/>
+		</association>
+	</resultMap>
+
+	<insert id="insertProductLog" parameterType="PaymentLogVO" useGeneratedKeys="true" keyProperty="logNum">
+		INSERT INTO product_log 
+		VALUES (#{logNum}, #{id}, #{productNum}, now(), 'WAIT')
+	</insert>
+	
+	<select id="getProductLog" parameterType="PaymentLogVO" resultMap="paymentResultMap">
+		SELECT * FROM product_log pl JOIN product p ON pl.product_num = p.product_num WHERE pl.log_num = #{logNum}
+	</select>
+	
+	<update id="cancelPayment" parameterType="PaymentLogVO">
+		UPDATE product_log SET status = 'CANCEL' WHERE log_num = #{logNum}
+	</update>
+	
+	<update id="confirmPayment" parameterType="PaymentLogVO">
+		UPDATE product_log SET status = 'CONFIRM' WHERE log_num = #{logNum}
+	</update>
+	
+</mapper>

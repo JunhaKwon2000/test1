@@ -20,7 +20,7 @@
   	</insert>
   	
   	<select id="login" parameterType="memberVO" resultMap="loginResult">
-  	SELECT id,pw
+  	SELECT *
   		FROM Member
   		WHERE ID=#{id}
   	

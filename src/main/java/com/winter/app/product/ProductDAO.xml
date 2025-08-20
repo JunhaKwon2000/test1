@@ -9,6 +9,7 @@
 		<result column="product_date" property="productDate"/>
 		<result column="product_price" property="productPrice"/>
 		<result column="kind_num" property="kindNum"/>
+		<result column="product_status" property="productStatus"/>
 		<association property="productKindVO" javaType="ProductKindVO">
 			<result column="kind_name" property="kindName"/>
 		</association>
@@ -20,7 +21,7 @@
 
 	<insert id="add" parameterType="ProductVO" useGeneratedKeys="true" keyProperty="productNum">
 		INSERT INTO product 
-		VALUES (NULL, #{kindNum}, #{productName}, #{productContent}, #{productDate}, #{productPrice})
+		VALUES (NULL, #{kindNum}, #{productName}, #{productContent}, #{productDate}, #{productPrice}, 0)
 	</insert>
 	
 	<insert id="addFile" parameterType="ProductFileVO">

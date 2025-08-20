@@ -48,7 +48,7 @@ public class MemberController {
 	public String login(MemberVO memberVO, HttpSession session, RedirectAttributes redirectAttributes)throws Exception {
 		
 		MemberVO loginVO = memberService.login(memberVO);
-		
+
 		if(loginVO != null) {
 			session.setAttribute("member",loginVO);
 			return "redirect:/";
