@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>mypage</h1>
+<%@ include file="/WEB-INF/views/include/header.jsp" %>
 
 <li class="nav-item">
-	<a class="nav-link" href="/member/passwordChange">비밀번호 변경하기</a>
+	<a href="/member/passwordChange">비밀번호 변경하기</a>
 </li>
 
 
