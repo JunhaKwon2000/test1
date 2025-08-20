@@ -1,34 +1,75 @@
 package com.winter.app.pay;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
+import com.winter.app.member.MemberVO;
 
+import jakarta.servlet.http.HttpSession;
+
+@RequestMapping("/payment/*")
 @Controller
 public class PaymentController {
 	
 	private final IamportClient iamportClient;
 	
+	@Autowired
+	private PaymentService paymentService;
+	
     public PaymentController(IamportClient iamportClient) {
         this.iamportClient = iamportClient;
     }
     
-    // 프론트에서 imp_uid 전달받아서 검증
-    @PostMapping("/verifyPayment")
+    @PostMapping("order")
+    @ResponseBody
+    public PaymentLogVO insertProductLog(HttpSession session, PaymentLogVO paymentLogVO) {
+    	MemberVO memberVO = (MemberVO)session.getAttribute("member");
+    	paymentLogVO.setId(memberVO.getId());
+    	int result = paymentService.insertProductLog(paymentLogVO);
+    	if (result > 0) {
+    		paymentLogVO = paymentService.getProductLog(paymentLogVO);
+    		return paymentLogVO;
+    	} else {
+    		return null;
+    	}
+    }
+    
+    @PostMapping("cancelPayment")
+    @ResponseBody
+    public boolean cancelPayment(PaymentLogVO paymentLogVO) {
+    	int result = paymentService.cancelPayment(paymentLogVO);
+    	if (result > 0) return true;
+    	else return false;
+    }
+    
+    @PostMapping("confirmPayment")
+    @ResponseBody
+    public boolean confirmPayment(PaymentLogVO paymentLogVO) {
+    	int result = paymentService.confirmPayment(paymentLogVO);
+    	if (result > 0) return true;
+    	else return false;
+    }
+    
+    
+    @PostMapping("verifyPayment")
     @ResponseBody
     public Payment verifyPayment(@RequestBody PaymentRequest request) throws Exception {
         IamportResponse<Payment> response = iamportClient.paymentByImpUid(request.getImp_uid());
         Payment payment = response.getResponse();
+        PaymentLogVO paymentLogVO = new PaymentLogVO();
+        paymentLogVO.setLogNum(payment.getMerchantUid());
 
-        // 여기서 DB 주문 금액 조회 (예시로 1000원 고정)
-        int orderAmount = 1000;
+        // DB 조회
+        long orderAmount = paymentService.getProductLog(paymentLogVO).getProductVO().getProductPrice();
 
-        if (payment.getAmount().intValue() == orderAmount) {
+        if (payment.getAmount().longValue() == orderAmount) {
             return payment; // 성공 시 결제 정보 리턴
         } else {
             throw new IllegalStateException("결제 금액 불일치");

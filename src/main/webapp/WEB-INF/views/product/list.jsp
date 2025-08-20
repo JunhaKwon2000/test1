@@ -12,22 +12,24 @@
 	<div class="col-md-8 offset-md-2 mt-5">
 		<div class="d-flex flex-wrap justify-content-start">
 			<c:forEach items="${ list }" var="product">
-				<div class="card m-2" style="width: 23%;">
-				 	<div class="bg-light rounded" 
-					     style="background-image: url('/files/product/${ product.productFileVO.saveName }');
-					            background-size: cover;
-					            background-position: center;
-					            width: 100%;
-					            height: 200px;">
+				<c:if test="${ product.productStatus eq 0 }">
+					<div class="card m-2" style="width: 23%;">
+					 	<div class="bg-light rounded" 
+						     style="background-image: url('/files/product/${ product.productFileVO.saveName }');
+						            background-size: cover;
+						            background-position: center;
+						            width: 100%;
+						            height: 200px;">
+						</div>
+					    <div class="card-body">
+						    <h5 class="card-title">${ product.productName }</h5>
+						    <p class="card-text">${ product.productContent }</p>
+						    <p class="card-text">상품 종류: ${ product.productKindVO.kindName }</p>
+						    <p class="card-text">${ product.productPrice }원</p>
+						    <a href="./detail?productNum=${ product.productNum }" class="btn btn-primary">상세보기</a>
+					    </div>
 					</div>
-				    <div class="card-body">
-					    <h5 class="card-title">${ product.productName }</h5>
-					    <p class="card-text">${ product.productContent }</p>
-					    <p class="card-text">상품 종류: ${ product.productKindVO.kindName }</p>
-					    <p class="card-text">${ product.productPrice }원</p>
-					    <a href="./detail?productNum=${ product.productNum }" class="btn btn-primary">상세보기</a>
-				    </div>
-				</div>
+				</c:if>
 			</c:forEach>
 		</div>
 		<a href="/product/add" class="btn btn-primary">상품 등록</a>
