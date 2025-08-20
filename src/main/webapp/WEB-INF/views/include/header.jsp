@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="/">애니멀세이프</a>
@@ -15,9 +16,22 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/member/join">회원가입</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/member/login">로그인</a>
-				</li>
+				<!-- 로그인 상태 분기 -->
+				<c:choose>
+					<c:when test="${not empty sessionScope.member}">
+						<li class="nav-item">
+							<a class="nav-link" href="/member/mypage">마이페이지</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/member/logout">로그아웃</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item">
+							<a class="nav-link" href="/member/login">로그인</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 	</div>

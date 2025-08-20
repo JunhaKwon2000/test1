@@ -13,7 +13,7 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<div class="col-md-4 offset-md-4 mt-5">
 		<h1 class="h3 mb-4 text-gray-800">회원가입</h1>
-		<form:form action="member/joinProc" method="post" enctype="multipart/form-data"  modelAttribute="memberVO">
+		<form:form method="post" enctype="multipart/form-data"  modelAttribute="memberVO">
 			<div class="mb-4">
 				<label for="id" class="form-label">ID</label>
 				<input type="text" class="form-control" id="id" name="id" placeholder="6자이상 12자 이하">
@@ -31,17 +31,17 @@
 				<input type="text" class="form-control" id="email" name="email" placeholder="xxxxx@xxxx.com">
 			</div>
 			<div class="mb-4">
-				<label for="phoneNumber" class="form-label">휴대폰 번호</label>
-				<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="010-xxxx-xxxx">
+				<label for="phone" class="form-label">휴대폰 번호</label>
+				<input type="text" class="form-control" id="phone" name="phone" placeholder="010-xxxx-xxxx">
 			</div>
 			<div class="info" id="info__birth">
-			  <select class="box" id="birth-year">
+			  <select class="box" id="birth-year" name="birthYear">
 			    <option disabled selected>출생 연도</option>
 			  </select>
-			  <select class="box" id="birth-month">
+			  <select class="box" id="birth-month" name="birthMonth">
 			    <option disabled selected>월</option>
 			  </select>
-			  <select class="box" id="birth-day">
+			  <select class="box" id="birth-day" name="birthDay">
 			    <option disabled selected>일</option>
 			  </select>
 			</div>

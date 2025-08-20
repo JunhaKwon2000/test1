@@ -23,7 +23,9 @@
 				<input type="password" class="form-control" id="pw" name="pw" placeholder="최소 8자 이상">
 			</div>
 			
-			
+			<c:if test="${not empty errorMessage}">
+				<p style="color:red">${errorMessage}</p>
+			</c:if>
 			<div class="d-grid mt-5">
 				<button class="btn btn-primary" type="submit">로그인</button>
 			</div>
