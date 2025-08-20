@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
-  <mapper namespace="com.winter.app.members.MemberDAO">
+  <mapper namespace="com.winter.app.member.MemberDAO">
   	<resultMap type="MemberVO" id="loginResult">
   		<id column="ID" property="id"/>
   		<result column="PW" property="pw"/>
@@ -14,14 +14,17 @@
   		<result column="STATUS" property="status"/>
   	</resultMap>
   	
-  	<insert id="join" parameterType="memberVO">
-  	INSERT INTO MEMBERS
-  	VALUES(#{id},#{password}, #{name}, #{email}, #{phone}, #{birth})
+  	<insert id="join" parameterType="MemberVO">
+  	INSERT INTO MEMBER
+  	VALUES(#{id}, #{pw}, #{name}, #{email}, #{phone}, #{birth},1)
   	</insert>
   	
   	<select id="login" parameterType="memberVO" resultMap="loginResult">
+  	SELECT id,pw
+  		FROM Member
+  		WHERE ID=#{id}
   	
-  </select>
+  	</select>
   	
   	
   	</mapper>

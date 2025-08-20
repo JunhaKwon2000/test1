@@ -16,6 +16,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MemberVO {
+	
+	private int birthYear;
+	private int birthMonth;
+	private int birthDay;
+	
 	@NotBlank(message = "id는 필수로 입력해야 합니다")
 	@DecimalMin(value="6" ,message = "id는 최소 6자 이상이어야 합니다")
 	private String id;
@@ -34,4 +39,11 @@ public class MemberVO {
 	@Past
 	private LocalDate birth;
 	private int status;
+	
+	public void setBirthDate() {
+		birth = LocalDate.of(birthYear, birthMonth, birthDay);
+	}
+	
 }
+
+
