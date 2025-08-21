@@ -48,4 +48,14 @@ public class ProductService {
 		return result;
 	}
 
+	public int update(ProductVO productVO) {
+		int result = productDAO.update(productVO);
+		return result;
+	}
+
+	public int delete(ProductVO productVO) {
+		int result = productDAO.delete(productVO);
+		return result;
+	}
+
 }

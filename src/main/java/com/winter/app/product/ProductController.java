@@ -50,4 +50,36 @@ public class ProductController {
 		return "/product/detail";
 	}
 	
+	@GetMapping("update")
+	public String update(ProductVO productVO, Model model) {
+		ProductVO result = productService.getProductByNum(productVO);
+		model.addAttribute("product", result);
+		return "/product/add";
+	}
+	
+	@PostMapping("update")
+	public String update(ProductVO productVO, MultipartFile productImg, Model model) throws Exception {
+		int result = productService.update(productVO);
+		String msg = "상품 수정에 실패했습니다";
+		String url = "./detail?productNum=" + productVO.getProductNum();
+		if (result > 0) msg = "상품이 수정되었습니다.";
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "common/result";
+	}
+	
+	@PostMapping("delete")
+	public String delete(ProductVO productVO, Model model) {
+		int result = productService.delete(productVO);
+		
+		String msg = "상품 삭제에 실패했습니다";
+		String url = "/product/list";
+		if (result > 0) msg = "상품이 삭제되었습니다.";
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "common/result";
+	}
+	
 }

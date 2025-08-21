@@ -24,9 +24,21 @@
 			    <p>${ product.productContent }</p>
 			    <p>상품 종류: ${ product.productKindVO.kindName }</p>
 			    <p>${ product.productPrice }원</p>
-			    <button class="button btn btn-primary" id="payment-request-button" style="margin-top: 30px">결제하기</button>
+			    <c:if test="${ member eq null }">
+			    	<p><a href="/member/login">로그인</a>후 결제하실 수 있습니다</p>
+			    </c:if>
+			    <c:if test="${ member ne null }">
+				    <button class="button btn btn-primary" id="payment-request-button" style="margin-top: 30px">결제하기</button>			    
+			    </c:if>
 		    </div>
 		</div>
+		<c:if test="${ member.status eq 0 }">
+			<a href="/product/update?productNum=${ product.productNum }" class="btn btn-warning">수정</a>	
+			<form id="frm" action="/product/delete" method="post">
+				<input type="hidden" name="productNum" value=${ product.productNum }>
+			</form>
+			<button type="submit" class="btn btn-danger delete">삭제</button>			
+		</c:if>
 		<a href="/product/list" class="btn btn-primary">상품 목록</a>
 		<input type="hidden" name="productNum" class="productNum" value=${ product.productNum }>
 		<input type="hidden" class="memberName" value=${ sessionScope.member.name }>
@@ -34,87 +46,7 @@
 		<input type="hidden" class="memberEmail" value=${ sessionScope.member.email }>
 	</div>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
-	
-	<script type="text/javascript">
-		IMP.init("imp68337458");
-	
-		const pay = document.querySelector('#payment-request-button');
-		const productNum = document.querySelector('.productNum');
-		let params = new URLSearchParams();
-		params.append("productNum", productNum.value);
-	
-		pay.addEventListener('click', () => {
-		    // 1. 주문 생성 요청
-		    fetch("/payment/order", {
-		        method: "POST",
-		        body: params
-		    })
-		    .then(res => res.json())
-		    .then(paymentLogVO => {
-		        // 2. 서버에서 응답받은 merchant_uid, amount 사용
-		        let name = document.querySelector('.memberName').value;
-		        console.log(name)
-		        let phone = document.querySelector('.memberPhone').value;
-		        let email = document.querySelector('.memberEmail').value;
-		 
-		        IMP.request_pay({
-		            pg: "html5_inicis",
-		            pay_method: "card",
-		            merchant_uid: paymentLogVO.logNum,
-		            name: paymentLogVO.productVO.productName,
-		            amount: paymentLogVO.productVO.productPrice,
-		            buyer_name: name,
-		            buyer_tel: phone,
-		            buyer_email: email
-		        }, function (rsp) {
-		            if (rsp.success) {
-		                // 3. 결제 성공 → 서버에 imp_uid 검증 요청
-		                fetch("/payment/verifyPayment", {
-		                    method: "POST",
-		                    headers: { "Content-Type": "application/json" },
-		                    body: JSON.stringify({ imp_uid: rsp.imp_uid })
-		                })
-		                .then(res => res.json())
-		                .then(payment => {
-		                	let payParam = new URLSearchParams();
-	                		payParam.append("logNum", paymentLogVO.logNum);
-		                    fetch("/payment/confirmPayment", {
-			                    method: "POST",
-			                    body: payParam
-			                })
-			                .then(res => res.json())
-			                .then(res => { console.log(res) })
-		                	
-		                    alert("결제가 완료되었습니다. 금액: " + paymentLogVO.productVO.productPrice);
-		                })
-		                .catch(err => {
-		                	let errParam = new URLSearchParams();
-	                		errParam.append("logNum", paymentLogVO.logNum);
-		                    fetch("/payment/cancelPayment", {
-			                    method: "POST",
-			                    body: errParam
-			                })
-			                .then(res => res.json())
-			                .then(res => { console.log(res) })
-			                
-		                	alert("결제 검증 실패: " + err)
-		                	});
-		            } else {
-		            	let cancelParam = new URLSearchParams();
-                		cancelParam.append("logNum", paymentLogVO.logNum);
-	                    fetch("/payment/cancelPayment", {
-		                    method: "POST",
-		                    body: cancelParam
-		                })
-		                .then(res => res.json())
-		                .then(res => { console.log(res) })
-		                
-		                alert("결제 실패: " + rsp.error_msg);
-		            }
-		        });
-		    })
-		    .catch(err => alert("주문 생성 실패: " + err));
-		});
-	</script>
+	<script type="text/javascript" src="/js/pay/payment.js"></script>
+	<script type="text/javascript" src="/js/product/product.js"></script>
 </body>
 </html>

@@ -26,13 +26,15 @@
 						    <p class="card-text">${ product.productContent }</p>
 						    <p class="card-text">상품 종류: ${ product.productKindVO.kindName }</p>
 						    <p class="card-text">${ product.productPrice }원</p>
-						    <a href="./detail?productNum=${ product.productNum }" class="btn btn-primary">상세보기</a>
+						    <a href="./detail?productNum=${ product.productNum }" class="btn btn-primary">상세보기</a>			    
 					    </div>
 					</div>
 				</c:if>
 			</c:forEach>
 		</div>
-		<a href="/product/add" class="btn btn-primary">상품 등록</a>
+		<c:if test="${ member.status eq 0 }">
+			<a href="/product/add" class="btn btn-primary">상품 등록</a>
+		</c:if>
 	</div>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 </body>
