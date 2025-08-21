@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PaymentRequestVO {
-
+  
 	 private String imp_uid;
 	
 }
