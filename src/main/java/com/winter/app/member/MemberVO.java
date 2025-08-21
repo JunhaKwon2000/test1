@@ -40,6 +40,8 @@ public class MemberVO {
 	private LocalDate birth;
 	private int status;
 	
+	private ProfileVO profileVO;
+	
 	public void setBirthDate() {
 		birth = LocalDate.of(birthYear, birthMonth, birthDay);
 	}

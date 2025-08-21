@@ -45,7 +45,9 @@
 			    <option disabled selected>일</option>
 			  </select>
 			</div>
-			
+			<div class="input-group mb-3">
+				<input type="file" class="form-control" id="inputGroupFile02" name="profile">
+			</div>
 			<div class="d-grid mt-5">
 				<button class="btn btn-primary" type="submit">회원등록</button>
 			</div>

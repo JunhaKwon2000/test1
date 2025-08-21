@@ -12,6 +12,15 @@
 <div class="col-md-4 offset-md-4 mt-5">
 		<h1 class="h3 mb-4 text-gray-800">내 정보</h1>
 		
+		<div class="bg-light rounded" 
+			     style="background-image: url('/files/profile/${memberVO.profileVO.saveName }');
+			            background-size: cover;
+			            background-position: center;
+			            width: 50%;
+			            height: 500px;">
+			</div>
+		
+		
 			<div class="mb-4">
 				<label for="id" class="form-label">ID : ${member.id }</label>
 			</div>
