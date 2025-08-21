@@ -16,11 +16,18 @@
 				<!-- 로그인 상태 분기 -->
 				<c:choose>
 					<c:when test="${not empty sessionScope.member}">
-						<li class="nav-item">
-							<a class="nav-link" href="/member/mypage">마이페이지</a>
-						</li>
+						<c:if test="${ member.status ne 0 }">
+							<li class="nav-item">
+								<a class="nav-link" href="/member/mypage">마이페이지</a>
+							</li>
+						</c:if>
 						<li class="nav-item">
 							<a class="nav-link" href="/member/logout">로그아웃</a>
+						</li>
+						<li class="nave-item">
+							<a class="nav-link">
+								${ member.name }님, 안녕하세요
+							</a>
 						</li>
 					</c:when>
 					<c:otherwise>

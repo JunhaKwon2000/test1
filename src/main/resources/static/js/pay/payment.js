@@ -18,7 +18,6 @@ pay.addEventListener('click', () => {
     .then(paymentLogVO => {
         // 2. 서버에서 응답받은 merchant_uid, amount 사용
         let name = document.querySelector('.memberName').value;
-        console.log(name)
         let phone = document.querySelector('.memberPhone').value;
         let email = document.querySelector('.memberEmail').value;
  
@@ -39,8 +38,9 @@ pay.addEventListener('click', () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ imp_uid: rsp.imp_uid })
                 })
-                .then(res => res.json())
+                .then(res => { if (!res.ok) throw new Error("결제 금액 불일치"); return res.json(); })
                 .then(payment => {
+					console.log(payment)
                 	let payParam = new URLSearchParams();
             		payParam.append("logNum", paymentLogVO.logNum);
                     fetch("/payment/confirmPayment", {
@@ -50,7 +50,7 @@ pay.addEventListener('click', () => {
 	                .then(res => res.json())
 	                .then(res => { console.log(res) })
                 	
-                    alert("결제가 완료되었습니다. 금액: " + paymentLogVO.productVO.productPrice);
+                    alert("결제가 완료되었습니다. 금액: " + payment.amount);
                 })
                 .catch(err => {
                 	let errParam = new URLSearchParams();
