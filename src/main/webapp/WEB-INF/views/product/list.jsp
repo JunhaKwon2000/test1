@@ -14,12 +14,12 @@
 			<form method="get" class="input-group mb-3">
 				<select class="form-select" id="inputGroupSelect02" name="kind">
 		    		<option value='' selected>상품 종류</option>
-			    	<option value="1">액세서리</option>
-			    	<option value="2">의류</option>
-			    	<option value="3">텀블러</option>
-			    	<option value="4">소품</option>
+			    	<option value="1" ${ keyword.kind eq 1 ? 'selected' : '' }>액세서리</option>
+			    	<option value="2" ${ keyword.kind eq 2 ? 'selected' : '' }>의류</option>
+			    	<option value="3" ${ keyword.kind eq 3 ? 'selected' : '' }>텀블러</option>
+			    	<option value="4" ${ keyword.kind eq 4 ? 'selected' : '' }>소품</option>
 				</select>
-				<input type="text" class="form-control" placeholder="검색어를 입력하세요" name="keyword">
+				<input type="text" class="form-control" placeholder="검색어를 입력하세요" name="keyword" value=${ keyword.keyword }>
 				<button class="btn btn-outline-secondary" type="submit" id="button-addon2">검색</button>
 			</form>
 			<c:forEach items="${ list }" var="product">

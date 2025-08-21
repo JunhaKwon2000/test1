@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import com.winter.app.member.MemberVO;
@@ -18,14 +19,11 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class PaymentController {
 	
-	private final IamportClient iamportClient;
+	@Autowired
+	private IamportClient iamportClient;
 	
 	@Autowired
 	private PaymentService paymentService;
-	
-    public PaymentController(IamportClient iamportClient) {
-        this.iamportClient = iamportClient;
-    }
     
     @PostMapping("order")
     @ResponseBody
@@ -60,27 +58,29 @@ public class PaymentController {
     
     @PostMapping("verifyPayment")
     @ResponseBody
-    public Payment verifyPayment(@RequestBody PaymentRequest request) throws Exception {
+    public Payment verifyPayment(@RequestBody PaymentRequestVO request) throws Exception {
+    	
         IamportResponse<Payment> response = iamportClient.paymentByImpUid(request.getImp_uid());
         Payment payment = response.getResponse();
         PaymentLogVO paymentLogVO = new PaymentLogVO();
         paymentLogVO.setLogNum(payment.getMerchantUid());
 
-        // DB 조회
+        // DB에서 결제 주문의 결제 상품의 금액을 가져옴 -> 이거를 이제 실제 결제된 금액이랑 비교해서 검증하는거임 ㅇㅇ
         long orderAmount = paymentService.getProductLog(paymentLogVO).getProductVO().getProductPrice();
-
+  	
         if (payment.getAmount().longValue() == orderAmount) {
-            return payment; // 성공 시 결제 정보 리턴
+        	return payment; // 성공 시 결제 정보 리턴
         } else {
-            throw new IllegalStateException("결제 금액 불일치");
+            // 금액이 불일치할 때 결제 취소기켜버리기
+            CancelData cancelData = new CancelData(
+                request.getImp_uid(),  // 취소할 imp_uid
+                true                   // imp_uid 기준으로 취소 여부
+            );
+            // 만약 취소 response를 쓸 일이 있으면 사용
+            // IamportResponse<Payment> cancelResponse = iamportClient.cancelPaymentByImpUid(cancelData); 
+            iamportClient.cancelPaymentByImpUid(cancelData);
+        	throw new RuntimeException("결제 금액 불일치");
         }
-    }
-
-    // imp_uid 받아올 DTO
-    public static class PaymentRequest {
-        private String imp_uid;
-        public String getImp_uid() { return imp_uid; }
-        public void setImp_uid(String imp_uid) { this.imp_uid = imp_uid; }
     }
 	
 }

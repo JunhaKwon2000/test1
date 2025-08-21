@@ -23,6 +23,7 @@ public class ProductController {
 	public String list(KeywordVO keywordVO, Model model) {
 		List<ProductVO> result = productService.getProductList(keywordVO);
 		model.addAttribute("list", result);
+		model.addAttribute("keyword", keywordVO);
 		return "/product/list";
 	}
 	

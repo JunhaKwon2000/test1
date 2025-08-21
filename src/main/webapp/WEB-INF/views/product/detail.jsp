@@ -47,6 +47,8 @@
 	</div>
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 	<script type="text/javascript" src="/js/pay/payment.js"></script>
-	<script type="text/javascript" src="/js/product/product.js"></script>
+	<c:if test="${ member.status eq 0 }">
+		<script type="text/javascript" src="/js/product/product.js"></script>
+	</c:if>
 </body>
 </html>
