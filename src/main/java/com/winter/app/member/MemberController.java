@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -116,7 +117,28 @@ public class MemberController {
 	
 	}
 	
+	@GetMapping("/member/update")
+	public String change() {
+		return "/member/update";
+	}
 	
-	
+	@PostMapping("/member/update")
+	public String memberChange(MemberVO memberVO, HttpSession session, RedirectAttributes redirectAttributes)throws Exception {
+		memberVO.setBirthDate();
+		int result = memberService.updateMember(memberVO);
+		
+		
+		if (result > 0) {
+			// 세션 정보도 갱신
+			session.setAttribute("member", memberVO);
+			redirectAttributes.addFlashAttribute("succesMessage","회원 정보가 성공적으로 변경되었습니다.");
+			
+		} else {
+			redirectAttributes.addFlashAttribute("errorMessage","회원 정보 수정에 실패하였습니다.");
+		}
+		
+		
+		return "redirect:/member/mypage";
+	}
 	
 }

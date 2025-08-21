@@ -50,6 +50,13 @@ public class MemberService {
 		return memberDAO.updatePassword(vo);
 		
 	}
+
+	
+
+	public int updateMember(MemberVO memberVO) throws Exception {
+		
+		return memberDAO.memberChange(memberVO);
+	}
 	
 
 }

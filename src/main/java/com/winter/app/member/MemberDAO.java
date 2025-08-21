@@ -12,4 +12,6 @@ public interface MemberDAO {
 	public String getPassword(MemberVO memberVO)throws Exception;
 	
 	public int updatePassword(MemberVO memberVO)throws Exception;
+	
+	public int memberChange(MemberVO memberVO)throws Exception;
 }
