@@ -38,5 +38,12 @@
   		WHERE id = #{id}
   	</update>
   	
+  	<update id="memberChange" parameterType="memberVO">
+  		UPDATE member
+  		SET name = #{name},
+  			email = #{email},
+  			phone = #{phone}
+  		WHERE id = #{id}
+  	</update>
   	
   	</mapper>

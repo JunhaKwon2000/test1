@@ -9,9 +9,33 @@
 <body>
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 
-<li class="nav-item">
-	<a href="/member/passwordChange">비밀번호 변경하기</a>
-</li>
+<div class="col-md-4 offset-md-4 mt-5">
+		<h1 class="h3 mb-4 text-gray-800">내 정보</h1>
+		
+			<div class="mb-4">
+				<label for="id" class="form-label">ID : ${member.id }</label>
+			</div>
+			<div class="mb-4">
+				<label for="name" class="form-label">이름 : ${member.name}</label>
+			</div>
+			<div class="mb-4">
+				<label for="email" class="form-label" >이메일 : ${member.email}</label>
+			</div>
+			<div class="mb-4">
+				<label for="phone" class="form-label">전화번호 : ${member.phone}</label>
+			</div>
+			<div class="mb-4">
+			  	<label>생년월일 : ${member.birth}</label>
+			</div>
+			
+		
+			<div class="d-grid mt-5">
+				<a class="btn btn-primary" href="/member/update">내 정보 수정하기</a>
+			</div>
+			<div class="d-grid mt-5">
+				<a class="btn btn-primary" href="/member/passwordChange">비밀번호 변경하기</a>
+			</div>
+	</div>
 
 
 </body>
