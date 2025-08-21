@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.common.KeywordVO;
+
 @RequestMapping("/product/*")
 @Controller
 public class ProductController {
@@ -18,8 +20,8 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping("list")
-	public String list(Model model) {
-		List<ProductVO> result = productService.getProductList();
+	public String list(KeywordVO keywordVO, Model model) {
+		List<ProductVO> result = productService.getProductList(keywordVO);
 		model.addAttribute("list", result);
 		return "/product/list";
 	}

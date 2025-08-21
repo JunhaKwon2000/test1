@@ -11,6 +11,17 @@
 	<%@ include file="/WEB-INF/views/include/header.jsp" %>
 	<div class="col-md-8 offset-md-2 mt-5">
 		<div class="d-flex flex-wrap justify-content-start">
+			<form method="get" class="input-group mb-3">
+				<select class="form-select" id="inputGroupSelect02" name="kind">
+		    		<option value='' selected>상품 종류</option>
+			    	<option value="1">액세서리</option>
+			    	<option value="2">의류</option>
+			    	<option value="3">텀블러</option>
+			    	<option value="4">소품</option>
+				</select>
+				<input type="text" class="form-control" placeholder="검색어를 입력하세요" name="keyword">
+				<button class="btn btn-outline-secondary" type="submit" id="button-addon2">검색</button>
+			</form>
 			<c:forEach items="${ list }" var="product">
 				<c:if test="${ product.productStatus eq 0 }">
 					<div class="card m-2" style="width: 23%;">

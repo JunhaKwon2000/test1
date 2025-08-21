@@ -16,7 +16,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(checkLoginInterceptor)
-				.addPathPatterns("/member/mypage");
+				.addPathPatterns("/member/mypage", "/member/update", "/member/passwordChange");
 	}
 	
 }

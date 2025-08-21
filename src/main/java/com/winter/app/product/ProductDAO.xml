@@ -29,10 +29,51 @@
 		VALUES (#{productNum}, #{saveName}, #{oriName})
 	</insert>
 	
-	<select id="getProductList" resultMap="productResultMap">
+	<select id="getProductList" resultMap="productResultMap" parameterType="keywordVO">
 		SELECT * 
 		FROM product p JOIN product_kind pk ON p.kind_num = pk.kind_num 
 		JOIN product_image pi ON p.product_num = pi.product_num
+		<where>
+			<choose>
+				<when test='kind == 1'>
+					<if test='keyword != ""'>					
+						p.kind_num = 1 AND p.product_name LIKE CONCAT('%',#{keyword},'%')
+					</if>
+					<if test='keyword == ""'>
+						p.kind_num = 1					
+					</if>
+				</when>
+				<when test='kind == 2'>
+					<if test='keyword != ""'>	
+						p.kind_num = 2 AND p.product_name LIKE CONCAT('%',#{keyword},'%')
+					</if>
+					<if test='keyword == ""'>
+						p.kind_num = 2					
+					</if>
+				</when>
+				<when test='kind == 3'>
+					<if test='keyword != ""'>	
+						p.kind_num = 3 AND p.product_name LIKE CONCAT('%',#{keyword},'%')
+					</if>
+					<if test='keyword == ""'>
+						p.kind_num = 3					
+					</if>
+				</when>
+				<when test='kind == 4'>
+					<if test='keyword != ""'>	
+						p.kind_num = 4 AND p.product_name LIKE CONCAT('%',#{keyword},'%')
+					</if>
+					<if test='keyword == ""'>
+						p.kind_num = 4					
+					</if>
+				</when>
+				<otherwise>
+					<if test='keyword != ""'>	
+						p.product_name LIKE CONCAT('%',#{keyword},'%')
+					</if>
+				</otherwise>
+			</choose>
+		</where>
 		ORDER BY p.product_num DESC;
 	</select>
 	
