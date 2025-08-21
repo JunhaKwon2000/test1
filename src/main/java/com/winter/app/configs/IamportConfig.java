@@ -11,7 +11,7 @@ public class IamportConfig {
 	
     @Value("${imp.api.key}")
     private String apiKey;
- 
+    
     @Value("${imp.api.secretkey}")
     private String secretKey;
 	
@@ -19,5 +19,5 @@ public class IamportConfig {
     IamportClient iamportClient() {
         return new IamportClient(apiKey, secretKey);
     }
-
+    
 }
