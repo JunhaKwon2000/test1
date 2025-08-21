@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.common.FileManager;
+import com.winter.app.common.KeywordVO;
 
 @Service
 public class ProductService {
@@ -38,8 +39,8 @@ public class ProductService {
 		return result;
 	}
 
-	public List<ProductVO> getProductList() {
-		List<ProductVO> result = productDAO.getProductList();
+	public List<ProductVO> getProductList(KeywordVO keywordVO) {
+		List<ProductVO> result = productDAO.getProductList(keywordVO);
 		return result;
 	}
 
