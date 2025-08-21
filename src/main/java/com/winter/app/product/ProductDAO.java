@@ -15,4 +15,8 @@ public interface ProductDAO {
 
 	ProductVO getProductByNum(ProductVO productVO);
 
+	int update(ProductVO productVO);
+
+	int delete(ProductVO productVO);
+
 }

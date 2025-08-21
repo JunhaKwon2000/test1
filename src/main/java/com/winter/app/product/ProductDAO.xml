@@ -44,4 +44,13 @@
 		ORDER BY p.product_num DESC;
 	</select>
 	
+	<update id="update" parameterType="productVO">
+		UPDATE product SET kind_num = #{kindNum}, product_name = #{productName}, product_content = #{productContent}, product_date = #{productDate}, product_price = #{productPrice}
+		WHERE product_num = #{productNum}
+	</update>
+	
+	<update id="delete" parameterType="productVO">
+		UPDATE product SET product_status = 1 WHERE product_num = #{productNum}
+	</update>
+	
 </mapper>
