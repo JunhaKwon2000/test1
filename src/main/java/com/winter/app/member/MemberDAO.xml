@@ -13,6 +13,19 @@
   		<result column="BIRTH" property="birth"/>
   		<result column="STATUS" property="status"/>
   	</resultMap>
+  	<resultMap type="MemberVO" id="getProfile">
+  		<id column="id" property="id"/>
+  		<result column="pw" property="pw"/>
+  		<result column="name" property="name"/>
+  		<result column="email" property="email"/>
+  		<result column="phone" property="phone"/>
+  		<result column="birth" property="birth"/>
+  		<result column="status" property="status"/>
+  		<association property="profileVO" javaType="ProfileVO">
+			<result column="ori_name" property="oriName"/>
+			<result column="save_name" property="saveName"/>
+		</association>
+  	</resultMap>
   	
   	<insert id="join" parameterType="MemberVO">
   	INSERT INTO MEMBER
@@ -45,5 +58,19 @@
   			phone = #{phone}
   		WHERE id = #{id}
   	</update>
+  	
+  	<insert id="addFile" parameterType="ProfileVO">
+  		INSERT INTO profile
+  		VALUES (#{id},#{saveName},#{oriName})
+  	</insert>
+  	
+  	<select id="getProfile" parameterType="memberVO" resultMap="getProfile">
+  		SELECT *
+  		FROM member m JOIN profile p ON m.id = p.id
+  		WHERE m.id= #{id}
+  		
+  	</select>
+  	
+  	
   	
   	</mapper>

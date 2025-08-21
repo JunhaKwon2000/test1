@@ -13,7 +13,7 @@
 	<div class="col-md-8 offset-md-2 mt-5">
 		<div class="d-flex flex-wrap justify-content-start align-self-center">
 		 	<div class="bg-light rounded" 
-			     style="background-image: url('/files/product/${ product.productFileVO.saveName }');
+			     style="background-image: url('/files/product/${product.productFileVO.saveName }');
 			            background-size: cover;
 			            background-position: center;
 			            width: 50%;

@@ -14,4 +14,8 @@ public interface MemberDAO {
 	public int updatePassword(MemberVO memberVO)throws Exception;
 	
 	public int memberChange(MemberVO memberVO)throws Exception;
+
+	public int addFile(ProfileVO profileVO);
+
+	public MemberVO getProfile(MemberVO memberVO);
 }
