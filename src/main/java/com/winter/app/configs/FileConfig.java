@@ -16,7 +16,11 @@ public class FileConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler(url).addResourceLocations("file:\\" + path);
+		// 개발용
+		// registry.addResourceHandler(url).addResourceLocations("file:\\" + path);
+		
+		// 배포용
+		registry.addResourceHandler(url).addResourceLocations("file:" + path);
 	}
 	
 }
