@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winter.app.product.ProductDAO">
+
+	<resultMap type="ProductVO" id="productResultMap">
+		<id column="product_num" property="productNum"/>
+		<result column="product_name" property="productName"/>
+		<result column="product_content" property="productContent"/>
+		<result column="product_date" property="productDate"/>
+		<result column="product_price" property="productPrice"/>
+		<result column="kind_num" property="kindNum"/>
+		<result column="product_status" property="productStatus"/>
+		<association property="productKindVO" javaType="ProductKindVO">
+			<result column="kind_name" property="kindName"/>
+		</association>
+		<association property="productFileVO" javaType="ProductFileVO">
+			<result column="ori_name" property="oriName"/>
+			<result column="save_name" property="saveName"/>
+		</association>
+	</resultMap>
+
+	<insert id="add" parameterType="ProductVO" useGeneratedKeys="true" keyProperty="productNum">
+		INSERT INTO product 
+		VALUES (NULL, #{kindNum}, #{productName}, #{productContent}, #{productDate}, #{productPrice}, 0)
+	</insert>
+	
+	<insert id="addFile" parameterType="ProductFileVO">
+		INSERT INTO product_image
+		VALUES (#{productNum}, #{saveName}, #{oriName})
+	</insert>
+	
+	<select id="getProductList" resultMap="productResultMap" parameterType="keywordVO">
+		SELECT * 
+		FROM product p JOIN product_kind pk ON p.kind_num = pk.kind_num 
+		JOIN product_image pi ON p.product_num = pi.product_num
+		<where>
+			<choose>
+				<when test='kind == 1'>
+					<if test='keyword != ""'>					
+						p.kind_num = 1 AND p.product_name LIKE CONCAT('%',#{keyword},'%')
+					</if>
+					<if test='keyword == ""'>
+						p.kind_num = 1					
+					</if>
+				</when>
+				<when test='kind == 2'>
+					<if test='keyword != ""'>	
+						p.kind_num = 2 AND p.product_name LIKE CONCAT('%',#{keyword},'%')
+					</if>
+					<if test='keyword == ""'>
+						p.kind_num = 2					
+					</if>
+				</when>
+				<when test='kind == 3'>
+					<if test='keyword != ""'>	
+						p.kind_num = 3 AND p.product_name LIKE CONCAT('%',#{keyword},'%')
+					</if>
+					<if test='keyword == ""'>
+						p.kind_num = 3					
+					</if>
+				</when>
+				<when test='kind == 4'>
+					<if test='keyword != ""'>	
+						p.kind_num = 4 AND p.product_name LIKE CONCAT('%',#{keyword},'%')
+					</if>
+					<if test='keyword == ""'>
+						p.kind_num = 4					
+					</if>
+				</when>
+				<otherwise>
+					<if test='keyword != ""'>	
+						p.product_name LIKE CONCAT('%',#{keyword},'%')
+					</if>
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY p.product_num DESC;
+	</select>
+	
+	<select id="getProductByNum" parameterType="productVO" resultMap="productResultMap">
+		SELECT * 
+		FROM product p JOIN product_kind pk ON p.kind_num = pk.kind_num 
+		JOIN product_image pi ON p.product_num = pi.product_num
+		WHERE p.product_num = #{productNum}
+		ORDER BY p.product_num DESC;
+	</select>
+	
+	<update id="update" parameterType="productVO">
+		UPDATE product SET kind_num = #{kindNum}, product_name = #{productName}, product_content = #{productContent}, product_date = #{productDate}, product_price = #{productPrice}
+		WHERE product_num = #{productNum}
+	</update>
+	
+	<update id="delete" parameterType="productVO">
+		UPDATE product SET product_status = 1 WHERE product_num = #{productNum}
+	</update>
+	
+</mapper>

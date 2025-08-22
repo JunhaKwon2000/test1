@@ -1,0 +1,23 @@
+package com.winter.app.member;
+
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface MemberDAO {
+	
+	public MemberVO login(MemberVO memberVO)throws Exception;
+	
+	public int join(MemberVO memberVO)throws Exception;
+	
+	public String getPassword(MemberVO memberVO)throws Exception;
+	
+	public int updatePassword(MemberVO memberVO)throws Exception;
+	
+	public int memberChange(MemberVO memberVO)throws Exception;
+
+	public int addFile(ProfileVO profileVO);
+
+	public MemberVO getProfile(MemberVO memberVO);
+
+	public int memberDelete(MemberVO memberVO);
+}

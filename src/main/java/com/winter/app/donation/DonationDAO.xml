@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winter.app.donation.DonationDAO">
+
+
+	<insert id="insertDonationLog" parameterType="DonationLogVO" useGeneratedKeys="true" keyProperty="logNum">
+		INSERT INTO donation_log 
+		VALUES (#{logNum}, #{id}, now(), 'WAIT')
+	</insert>
+	
+	<select id="getDonationLog" parameterType="DonationLogVO">
+		SELECT * FROM donation_log WHERE log_num = #{logNum}
+	</select>
+	
+	<update id="cancelPayment" parameterType="DonationLogVO">
+		UPDATE donation_log SET status = 'CANCEL' WHERE log_num = #{logNum}
+	</update>
+	
+	<update id="confirmPayment" parameterType="DonationLogVO">
+		UPDATE donation_log SET status = 'CONFIRM' WHERE log_num = #{logNum}
+	</update>
+	
+	
+</mapper>
