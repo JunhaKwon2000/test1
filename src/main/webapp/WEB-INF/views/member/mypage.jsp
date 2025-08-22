@@ -22,6 +22,7 @@
 		
 		
 			<div class="mb-4">
+				<br>
 				<label for="id" class="form-label">ID : ${member.id }</label>
 			</div>
 			<div class="mb-4">
@@ -44,8 +45,14 @@
 			<div class="d-grid mt-5">
 				<a class="btn btn-primary" href="/member/passwordChange">비밀번호 변경하기</a>
 			</div>
+			
+			<form action="/member/delete" method="post" id="frm"></form>
+			
+				<div class="d-grid mt-5">
+					<button class ="btn btn-danger delete">회원탈퇴</button>
+				</div>
 	</div>
 
-
+<script type="text/javascript" src ="/js/join/delete.js"></script>
 </body>
 </html>

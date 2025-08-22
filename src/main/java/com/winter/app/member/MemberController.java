@@ -32,13 +32,24 @@ public class MemberController {
 	}
 	
 	@PostMapping("join")
-	public String join(@Valid MemberVO memberVO, BindingResult bingdingResult, MultipartFile profile)throws Exception {
+	public String join(@Valid MemberVO memberVO, BindingResult bindingResult, MultipartFile profile, Model model)throws Exception {
 		
 		memberVO.setBirthDate();
 		
+		if(bindingResult.hasErrors() || memberVO.getBirth() == null) {
+			System.out.println(bindingResult.hasErrors());
+			return "member/join";
+		}
+		
 		int result = memberService.join(memberVO, profile);
 		
-		return "/member/login";
+		String url = "/member/login";
+		String msg = "회원가입에 실패했습니다";
+		if (result > 0) msg = "회원가입에 성공했습니다.";
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "common/result";
+
 	}
 	
 	@GetMapping("login")
@@ -146,5 +157,25 @@ public class MemberController {
 		
 		return "redirect:/member/mypage";
 	}
+	
+	@PostMapping("/member/delete")
+	public String memberDelete(HttpSession session, Model model) {
+		
+		MemberVO memberVO =(MemberVO)session.getAttribute("member");
+		
+		int result = memberService.memberDelete(memberVO);
+		
+		String url = "/";
+		String msg = "회원탈퇴에 실패했습니다";
+		if (result > 0) {
+			msg = "회원탈퇴에 성공했습니다.";
+			session.invalidate();
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "common/result";
+
+	}
+	
 	
 }

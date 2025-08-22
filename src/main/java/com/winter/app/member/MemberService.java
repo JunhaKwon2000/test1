@@ -81,6 +81,11 @@ public class MemberService {
 		
 		return memberDAO.getProfile(memberVO);
 	}
+
+	public int memberDelete(MemberVO memberVO) {
+		
+		return memberDAO.memberDelete(memberVO);
+	}
 	
 
 }

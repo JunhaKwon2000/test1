@@ -18,4 +18,6 @@ public interface MemberDAO {
 	public int addFile(ProfileVO profileVO);
 
 	public MemberVO getProfile(MemberVO memberVO);
+
+	public int memberDelete(MemberVO memberVO);
 }
