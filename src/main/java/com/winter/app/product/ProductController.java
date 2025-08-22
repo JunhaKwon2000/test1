@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.common.KeywordVO;
+
+import jakarta.validation.Valid;
 
 @RequestMapping("/product/*")
 @Controller
@@ -34,7 +37,11 @@ public class ProductController {
 	}
 	
 	@PostMapping("add")
-	public String add(ProductVO productVO, MultipartFile productImg, Model model) throws Exception {
+	public String add(@Valid ProductVO productVO, BindingResult bindingResult, MultipartFile productImg, Model model) throws Exception {
+		if (bindingResult.hasErrors()) {
+			return "/product/add";
+		}
+		
 		int result = productService.add(productVO, productImg);
 		
 		String msg = "상품 등록에 실패했습니다";

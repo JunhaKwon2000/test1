@@ -23,6 +23,7 @@
 			    <h5>${ product.productName }</h5>
 			    <p>${ product.productContent }</p>
 			    <p>상품 종류: ${ product.productKindVO.kindName }</p>
+			    <p>판매기간: ${ product.productDate }까지</p>
 			    <p>${ product.productPrice }원</p>
 			    <c:if test="${ member eq null }">
 			    	<p><a href="/member/login">로그인</a>후 결제하실 수 있습니다</p>

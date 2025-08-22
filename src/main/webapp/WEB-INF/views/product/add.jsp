@@ -16,18 +16,22 @@
 			<div class="mb-4">
 				<label for="productName" class="form-label">상품명</label>
 				<input type="text" class="form-control" id="productName" name="productName" value="${ product.productName }">
+				<form:errors path="productName" style="color: red;"></form:errors>
 			</div>
 			<div class="mb-4">
 				<label for="productDate" class="form-label">판매 기간</label>
 				<input type="date" class="form-control" id="productDate" name="productDate" value="${ product.productDate }">
+				<form:errors path="productDate" style="color: red;"></form:errors>
 			</div>
 			<div class="mb-4">
 				<label for="productContent" class="form-label">상세 설명</label>
 				<textarea class="form-control" id="productContent" name="productContent" style="height: 100px; resize: none;">${ product.productContent }</textarea>
+				<form:errors path="productContent" style="color: red;"></form:errors>
 			</div>
 			<div class="mb-4">
 				<label for="productPrice" class="form-label">상품 가격</label>
 				<input type="number" class="form-control" id="productPrice" name="productPrice" step="1000" value="${ product.productPrice }">
+				<form:errors path="productPrice" style="color: red;"></form:errors>
 			</div>
 			<div class="input-group mb-3">
 				<input type="file" class="form-control" id="inputGroupFile02" name="productImg">
@@ -74,6 +78,7 @@
 					</c:if>
 				</div>
 			</div>
+			<form:errors path="kindNum" style="color: red;"></form:errors>
 			<div class="d-grid mt-5">
 				<c:if test="${ product eq null }">
 					<button class="btn btn-primary" type="submit">상품등록</button>
