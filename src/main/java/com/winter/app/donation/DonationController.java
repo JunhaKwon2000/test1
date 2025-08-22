@@ -11,9 +11,7 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import com.winter.app.member.MemberVO;
-import com.winter.app.pay.PaymentLogVO;
 import com.winter.app.pay.PaymentRequestVO;
-import com.winter.app.pay.PaymentController.PaymentRequest;
 
 import jakarta.servlet.http.HttpSession;
 

@@ -36,6 +36,7 @@
 						    <h5 class="card-title">${ product.productName }</h5>
 						    <p class="card-text">${ product.productContent }</p>
 						    <p class="card-text">상품 종류: ${ product.productKindVO.kindName }</p>
+						    <p class="card-text">판매기간: ${ product.productDate }까지</p>
 						    <p class="card-text">${ product.productPrice }원</p>
 						    <a href="./detail?productNum=${ product.productNum }" class="btn btn-primary">상세보기</a>			    
 					    </div>

@@ -109,6 +109,11 @@
 		  <artifactId>iamport-rest-client-java</artifactId>
 		  <version>0.2.14</version>
 		</dependency>
+		<!-- 검증 API -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 	</dependencies>
 	<repositories>
 	  <repository>
