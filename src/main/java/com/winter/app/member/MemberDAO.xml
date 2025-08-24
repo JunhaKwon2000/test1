@@ -30,13 +30,13 @@
   	</resultMap>
   	
   	<insert id="join" parameterType="MemberVO">
-  	INSERT INTO MEMBER
+  	INSERT INTO member
   	VALUES(#{id}, #{pw}, #{name}, #{email}, #{phone}, #{birth},1,1)
   	</insert>
   	
   	<select id="login" parameterType="MemberVO" resultMap="loginResult">
   	SELECT *
-  		FROM Member
+  		FROM member
   		WHERE ID=#{id}
   	
   	</select>
